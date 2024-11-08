@@ -1,0 +1,333 @@
+.base {
+  position: relative;
+  overflow:hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.text {
+  position: relative;
+  z-index: 10;
+}
+
+/* Center Hover Variant */
+.centerHover {
+  color: #0866ff;
+  border: 1px solid #0866ff;
+}
+
+.centerHover:hover {
+  color: white;
+  box-shadow: 0 0 10px #0866ff;
+}
+
+.centerHover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  height: 0;
+  width: 0;
+  background-color:  #0866ff;
+  transition: all 0.3s ease-out;
+  opacity: 0.7;
+}
+
+.centerHover:hover::before {
+  height: 100%;
+  width: 100%;
+    border: 0px;
+
+}
+
+/* Slide Hover Variant */
+.slideHover {
+  height: 3rem;
+  width: 10rem;
+  border: 1px solid black;
+}
+
+.slideHover:hover {
+  color: white;
+  box-shadow: 0 0 10px black;
+}
+
+.slideHover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  margin-left: -0.5rem;
+  height: 12rem;
+  width: 12rem;
+  background-color: #111;
+  transform-origin: top right;
+  transform: translateX(-100%) translateY(3rem) rotate(-90deg);
+  transition: all 0.3s ease;
+}
+
+.slideHover:hover::before {
+  transform: rotate(-180deg);
+}
+
+/* Skew Curtain Variant */
+.skewCurtain {
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.skewCurtain:hover {
+  color: white;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+.skewCurtain::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 256px;
+  height: 0;
+  background-color: #3b82f6;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.skewCurtain:hover::before {
+  height: 256px;
+  transform: translateY(-128px);
+}
+
+/* Shine Variant */
+.shine {
+  border: 1px solid #F47458;
+  background-color: #F47458;
+  color: white;
+}
+
+.shine:hover {
+  box-shadow: 0 0 10px #F47458;
+}
+
+.shine::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 3rem;
+  width: 1.5rem;
+  background-color: white;
+  opacity: 0.1;
+  transform: translateX(3rem) rotate(6deg);
+  transition: all 0.7s ease;
+}
+
+.shine:hover::before {
+  transform: translateX(-10rem);
+}
+
+/* Swipe Variant */
+.swipe {
+  border: 1px solid #F47458;
+  background-color: white;
+  color: #F47458;
+}
+
+.swipe:hover {
+  color: white;
+  box-shadow: 0 0 10px #F47458;
+}
+
+.swipe::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  height: 100%;
+  width: 0;
+  background-color: #F47458;
+  transition: all 0.5s ease;
+}
+
+.swipe:hover::before {
+  width: 100%;
+}
+
+/* Curtain Variant */
+.curtain {
+  height: 3.125rem;
+  width: 10rem;
+  border: 1px solid #ec4899;
+  background-color: white;
+  color: #ec4899;
+}
+
+.curtain:hover {
+  color: white;
+  box-shadow: 0 0 10px #ec4899;
+}
+
+.curtain::before,
+.curtain::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 0;
+  transition: all 0.5s ease;
+}
+
+.curtain::before {
+  left: 0;
+  background-color: #ec4899;
+}
+
+.curtain::after {
+  right: 0;
+  background-color: #ec4899;
+}
+
+.curtain:hover::before {
+  width: 50%;
+}
+
+.curtain:hover::after {
+  width: 50%;
+}
+
+/* Smoosh Variant */
+.smoosh {
+  border: 1px solid green;
+  background-color: white;
+  color: green;
+}
+
+.smoosh:hover {
+  color: white;
+  box-shadow: 0 0 10px green;
+}
+
+.smoosh::before,
+.smoosh::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+
+.smoosh::before {
+  top: 0;
+  height: 0;
+  background-color: green;
+}
+
+.smoosh::after {
+  bottom: 0;
+  height: 0;
+  background-color: green;
+}
+
+.smoosh:hover::before {
+  height: 50%;
+}
+
+.smoosh:hover::after {
+  height: 50%;
+}
+
+/* Alternate Variant */
+.alternate {
+  height: 3.125rem;
+  width: 10rem;
+  border: 1px solid #8b5cf6;
+  background-color: white;
+  color: #8b5cf6;
+}
+
+.alternate:hover {
+  color: white;
+  box-shadow: 0 0 10px #8b5cf6;
+}
+
+.alternate::before,
+.alternate::after {
+  content: '';
+  position: absolute;
+  width: 25%;
+  height: 0;
+  background-color: #8b5cf6;
+  transition: all 0.5s ease;
+}
+
+.alternate::before {
+  left: 0;
+  top: 0;
+}
+
+.alternate::after {
+  right: 0;
+  bottom: 0;
+}
+
+.alternate:hover::before,
+.alternate:hover::after {
+  height: 100%;
+}
+
+/* Circle Hover Variant */
+.circleHover {
+  height: 3.125rem;
+  width: 10rem;
+  background-color: #374151;
+  color: white;
+}
+
+.circleHover:hover {
+  box-shadow: 0 0 10px #fb923c;
+}
+
+.circleHover::before {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  background-color: #fb923c;
+  border-radius: 50%;
+  transition: all 0.5s ease-out;
+}
+
+.circleHover:hover::before {
+  height: 14rem;
+  width: 14rem;
+}
+
+/* Hide Background Variant */
+.hideBackground {
+  height: 3.125rem;
+  width: 10rem;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+}
+
+.hideBackground:hover {
+  background-color: white;
+  color: #2563eb;
+  box-shadow: 0 0 10px #2563eb;
+}
+
+.hideBackground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 25px solid white;
+  transition: all 0.1s linear;
+}
+
+
