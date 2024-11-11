@@ -1,13 +1,17 @@
 'use client';
 
-import { BookOpen, Home, LibraryBig, LogOut, Settings, Users } from 'lucide-react';
+import { BookOpen, Home, LogOut, Settings, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
-import { ReactNode } from 'react';
+const Layout = ({ children }: { children: ReactNode }) => {
+  const currentPath = usePathname()
 
-const layout = ({ children }: { children: ReactNode }) => {
+  // Helper function to determine if the link is active
+  const isActive = (path: string) => currentPath === path;
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -22,28 +26,30 @@ const layout = ({ children }: { children: ReactNode }) => {
           />
         </div>
         <nav className="text-white">
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
+          <Link href="/" className={`flex items-center px-6 py-3 ${isActive('/') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <Home className="w-6 h-6 mr-4" />
             <span className="font-bold">Home</span>
-          </a>
-          <Link className="flex items-center px-6 py-3 hover:bg-[#5da639]" href="/feature/view-user-list">
+          </Link>
+
+          <Link href="/feature/view-user-list" className={`flex items-center px-6 py-3 ${isActive('/feature/view-user-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <Users className="w-6 h-6 mr-4" />
             <span className="font-bold">User Management</span>
           </Link>
 
-          <a href="/feature/view-curriculum-list" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
+          <Link href="/feature/view-curriculum-list" className={`flex items-center px-6 py-3 ${isActive('/feature/view-curriculum-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <BookOpen className="w-6 h-6 mr-4" />
             <span className="font-bold">Curriculum Management</span>
-          </a>
+          </Link>
 
-          <Link href="/feature/view-system-setting" className="flex items-center px-6 py-3 mt-60 hover:bg-[#5da639]">
+          <Link href="/feature/view-system-setting" className={`flex items-center px-6 py-3 mt-60 ${isActive('/feature/view-system-setting') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <Settings className="w-6 h-6 mr-4" />
             <span className="font-bold">Setting</span>
           </Link>
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
+
+          <Link href="/signout" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
             <LogOut className="w-6 h-6 mr-4" />
             <span className="font-bold">Sign out</span>
-          </a>
+          </Link>
         </nav>
       </div>
 
@@ -52,7 +58,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         {children}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default layout
+export default Layout;

@@ -74,8 +74,11 @@ const ViewSystemSettingForm: React.FC = () => {
             type="text"
             placeholder="Search..."
             className="border px-3 py-1 rounded"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen">
+          <button onClick={() => {
+            fetchSettings();
+          }} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen">
             Search
           </button>
           <button className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen">
@@ -84,50 +87,53 @@ const ViewSystemSettingForm: React.FC = () => {
         </div>
       </div>
 
-      <table className="w-full mt-10 table-auto border-collapse rounded py-5">
-        <thead>
-          <tr className="bg-[#6FBC44] text-white">
-            <th className="px-6 py-3 uppercase tracking-wider border-r-white">#</th>
-            <th className="px-6 py-3 text-center  tracking-wider border-r-white">
-              Setting Name
-            </th>
-            <th className="px-6 py-3 text-center  tracking-wider border-r-white">
-              Setting Group
-            </th>
-            <th className="px-6 py-3 text-center  tracking-wider border-r-white">
-              Description
-            </th>
-            <th className="px-6 py-3 text-center  tracking-wider border-r-white">
-              Status
-            </th>
-            <th className="px-6 py-3 text-center  tracking-wider border-r-white">
-              Detail
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {settingdata.sort((a, b) => a.id - b.id).map((settings) => {
-            return (
-              <tr key={settings.id}>
-                <td className="border px-6 py-3 text-center">{settings.id}</td>
-                <td className="border px-6 py-3 text-center">{settings.settingName}</td>
-                <td className="border px-6 py-3 text-center">{settings.settingGroup}</td>
-                <td className="border px-6 py-3 text-center">{settings.description}</td>
-                <td className="border px-6 py-3 text-center">
-                  {settings.status ? 'Active' : 'Inactive'}
-                </td>
-                <td className="border px-6 py-3 justify-center-center">
-                  <div className="flex justify-center">
-                    <Link href={'#'}>
-                      <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {
+        loading ? <p> Loading... </p> : <table className="w-full mt-10 table-auto border-collapse rounded py-5">
+          <thead>
+            <tr className="bg-[#6FBC44] text-white">
+              <th className="px-6 py-3 uppercase tracking-wider border-r-white">#</th>
+              <th className="px-6 py-3 text-center  tracking-wider border-r-white">
+                Setting Name
+              </th>
+              <th className="px-6 py-3 text-center  tracking-wider border-r-white">
+                Setting Group
+              </th>
+              <th className="px-6 py-3 text-center  tracking-wider border-r-white">
+                Description
+              </th>
+              <th className="px-6 py-3 text-center  tracking-wider border-r-white">
+                Status
+              </th>
+              <th className="px-6 py-3 text-center  tracking-wider border-r-white">
+                Detail
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {settingdata.sort((a, b) => a.id - b.id).map((settings) => {
+              return (
+                <tr key={settings.id}>
+                  <td className="border px-6 py-3 text-center">{settings.id}</td>
+                  <td className="border px-6 py-3 text-center">{settings.settingName}</td>
+                  <td className="border px-6 py-3 text-center">{settings.settingGroup}</td>
+                  <td className="border px-6 py-3 text-center">{settings.description}</td>
+                  <td className="border px-6 py-3 text-center">
+                    {settings.status ? 'Active' : 'Inactive'}
+                  </td>
+                  <td className="border px-6 py-3 justify-center-center">
+                    <div className="flex justify-center">
+                      <Link href={'#'}>
+                        <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      }
+
     </div>
   );
 };
