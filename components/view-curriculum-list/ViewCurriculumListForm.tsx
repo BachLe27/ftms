@@ -191,6 +191,11 @@ const ViewCurriculumListForm: React.FC = () => {
             className="border px-3 py-1 rounded"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              fetchSettings(1);
+            }
+            }}
           />
           <button onClick={() => fetchSettings(1)} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
             Search

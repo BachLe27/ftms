@@ -75,13 +75,20 @@ const ViewSystemSettingForm: React.FC = () => {
             placeholder="Search..."
             className="border px-3 py-1 rounded"
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                fetchSettings();
+              }
+            }}
           />
           <button onClick={() => {
             fetchSettings();
           }} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen">
             Search
           </button>
-          <button className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen">
+          <button className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:bg-lightgreen" onClick={() => {
+            router.push("/feature/add-setting");
+          }}>
             + Add More
           </button>
         </div>
@@ -110,10 +117,10 @@ const ViewSystemSettingForm: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {settingdata.sort((a, b) => a.id - b.id).map((settings) => {
+            {settingdata?.sort((a, b) => a?.id - b?.id).map((settings, index) => {
               return (
                 <tr key={settings.id}>
-                  <td className="border px-6 py-3 text-center">{settings.id}</td>
+                  <td className="border px-6 py-3 text-center">{index + 1}</td>
                   <td className="border px-6 py-3 text-center">{settings.settingName}</td>
                   <td className="border px-6 py-3 text-center">{settings.settingGroup}</td>
                   <td className="border px-6 py-3 text-center">{settings.description}</td>
@@ -122,7 +129,7 @@ const ViewSystemSettingForm: React.FC = () => {
                   </td>
                   <td className="border px-6 py-3 justify-center-center">
                     <div className="flex justify-center">
-                      <Link href={'#'}>
+                      <Link href={`/feature/view-system-setting/${settings.id}`}>
                         <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
                       </Link>
                     </div>
