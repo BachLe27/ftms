@@ -187,148 +187,110 @@ const ViewUserListForm: React.FC = () => {
   }, [currentPage]);
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <div className="w-[228px] bg-[#6FBC44] fixed h-screen">
-        <div className="p-10">
-          <Image
-            src="/assets/images/fpt-logo.png"
-            alt="FPT Logo"
-            width={150}
-            height={50}
-            className="mb-8"
-          />
+    <div className="flex-1 ml-[228px] bg-[#EFF5EB] p-24">
+      <div className="flex justify-between items-center p-8 border-b">
+        <h2 className="text-6xl font-bold">User List</h2>
+        <div className="flex space-x-4">
+          <form onSubmit={searchUsers} className="flex space-x-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border px-3 py-1 rounded"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-gray-500 shadow-md hover:shadow-lg hover:shadow-gray-500 hover:bg-[#5da639]"
+              disabled={loading}
+            >
+              {loading ? "Searching..." : "Search"}
+            </button>
+          </form>
+          <button
+            className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-gray-500 shadow-md hover:shadow-lg hover:shadow-gray-500 hover:bg-[#5da639]"
+            onClick={() => router.push("/feature/add-user")}
+          >
+            +Add New User
+          </button>
         </div>
-        <nav className="text-white">
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
-            <Home className="w-6 h-6 mr-4" />
-            <span className="font-bold">Home</span>
-          </a>
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
-            <Users className="w-6 h-6 mr-4" />
-            <span className="font-bold">User Management</span>
-          </a>
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
-            <BookOpen className="w-6 h-6 mr-4" />
-            <span className="font-bold">Course Management</span>
-          </a>
-          <a href="#" className="flex items-center px-6 py-3 mt-60 hover:bg-[#5da639]">
-            <Settings className="w-6 h-6 mr-4" />
-            <span className="font-bold">Setting</span>
-          </a>
-          <a href="#" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
-            <LogOut className="w-6 h-6 mr-4" />
-            <span className="font-bold">Sign out</span>
-          </a>
-        </nav>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 ml-[228px] bg-[#EFF5EB] p-24">
-        <div className="flex justify-between items-center p-8 border-b">
-          <h2 className="text-6xl font-bold">User List</h2>
-          <div className="flex space-x-4">
-            <form onSubmit={searchUsers} className="flex space-x-4">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="border px-3 py-1 rounded"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button
-                type="submit"
-                className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-gray-500 shadow-md hover:shadow-lg hover:shadow-gray-500 hover:bg-[#5da639]"
-                disabled={loading}
-              >
-                {loading ? "Searching..." : "Search"}
-              </button>
-            </form>
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
+          {error}
+        </div>
+      )}
+
+      {loading ? (
+        <div className="text-center py-10">Loading...</div>
+      ) : (
+        <>
+          <table className="w-full mt-10 table-auto border-collapse rounded py-5">
+            <thead>
+              <tr className="bg-[#6FBC44] text-white">
+                <th className="px-6 py-3 uppercase tracking-wider border-r-white">#</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">User name</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Role</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Email</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Phone number</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.userId} className={user.status === false ? "bg-green-300" : ""}>
+                  <td className="border px-6 py-3 text-center">{user.userId}</td>
+                  <td className="border px-6 py-3 text-center">{user.fullName}</td>
+                  <td className="border px-6 py-3 text-center">{user.roles}</td>
+                  <td className="border px-6 py-3 text-center">{user.email}</td>
+                  <td className="border px-6 py-3 text-center">{user.phone}</td>
+                  <td className="border px-6 py-3 text-center">
+                    <div className="flex items-center justify-center">
+                      <div
+                        onClick={() => handleToggleStatus(user.userId)}
+                        className={`flex h-6 w-12 cursor-pointer rounded-full border border-black ${user.status ? "justify-end bg-green-500" : "justify-start bg-black"
+                          } px-[1px]`}
+                      >
+                        <motion.div
+                          className="h-5 w-5 rounded-full bg-white"
+                          layout
+                          transition={{
+                            type: "spring",
+                            stiffness: 700,
+                            damping: 30,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Pagination Controls */}
+          <div className="pagination mt-4 flex align-middle w-[100%] justify-center space-x-2">
             <button
-              className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-gray-500 shadow-md hover:shadow-lg hover:shadow-gray-500 hover:bg-[#5da639]"
-              onClick={() => router.push("/feature/add-user")}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 0}
+              className="px-3 py-2 rounded bg-gray-200 disabled:opacity-50"
             >
-              +Add New User
+              &lt;
+            </button>
+
+            {renderPaginationButtons()}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages - 1}
+              className="px-3 py-2 rounded bg-gray-200 disabled:opacity-50"
+            >
+              &gt;
             </button>
           </div>
-        </div>
-
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
-            {error}
-          </div>
-        )}
-
-        {loading ? (
-          <div className="text-center py-10">Loading...</div>
-        ) : (
-          <>
-            <table className="w-full mt-10 table-auto border-collapse rounded py-5">
-              <thead>
-                <tr className="bg-[#6FBC44] text-white">
-                  <th className="px-6 py-3 uppercase tracking-wider border-r-white">#</th>
-                  <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">User name</th>
-                  <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Role</th>
-                  <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Email</th>
-                  <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Phone number</th>
-                  <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.userId} className={user.status === false ? "bg-green-300" : ""}>
-                    <td className="border px-6 py-3 text-center">{user.userId}</td>
-                    <td className="border px-6 py-3 text-center">{user.fullName}</td>
-                    <td className="border px-6 py-3 text-center">{user.roles}</td>
-                    <td className="border px-6 py-3 text-center">{user.email}</td>
-                    <td className="border px-6 py-3 text-center">{user.phone}</td>
-                    <td className="border px-6 py-3 text-center">
-                      <div className="flex items-center justify-center">
-                        <div
-                          onClick={() => handleToggleStatus(user.userId)}
-                          className={`flex h-6 w-12 cursor-pointer rounded-full border border-black ${user.status ? "justify-end bg-green-500" : "justify-start bg-black"
-                            } px-[1px]`}
-                        >
-                          <motion.div
-                            className="h-5 w-5 rounded-full bg-white"
-                            layout
-                            transition={{
-                              type: "spring",
-                              stiffness: 700,
-                              damping: 30,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* Pagination Controls */}
-            <div className="pagination mt-4 flex align-middle w-[100%] justify-center space-x-2">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 0}
-                className="px-3 py-2 rounded bg-gray-200 disabled:opacity-50"
-              >
-                &lt;
-              </button>
-
-              {renderPaginationButtons()}
-
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages - 1}
-                className="px-3 py-2 rounded bg-gray-200 disabled:opacity-50"
-              >
-                &gt;
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 };

@@ -5,8 +5,8 @@ import React from 'react'
 const ViewUserList = () => {
   return (
     <div>
-      <ViewUserListForm/>
-      
+      <ViewUserListForm />
+
     </div>
   )
 }
