@@ -1,6 +1,6 @@
 'use client';
 
-import { BookOpen, Home, LogOut, Settings, Users } from 'lucide-react';
+import { BookOpen, BookOpenText, Home, Library, LogOut, Settings, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
@@ -37,8 +37,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </Link>
 
           <Link href="/feature/view-curriculum-list" className={`flex items-center px-6 py-3 ${isActive('/feature/view-curriculum-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
-            <BookOpen className="w-6 h-6 mr-4" />
+            <Library className="w-6 h-6 mr-4" />
             <span className="font-bold">Curriculum Management</span>
+          </Link>
+
+          <Link href="/feature/view-subject-list" className={`flex items-center px-6 py-3 ${isActive('/feature/view-subject-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
+            <BookOpenText className="w-6 h-6 mr-4" />
+            <span className="font-bold">Subject Management</span>
           </Link>
 
           <Link href="/feature/view-system-setting" className={`flex items-center px-6 py-3 mt-60 ${isActive('/feature/view-system-setting') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
