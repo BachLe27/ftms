@@ -3,7 +3,7 @@ import ViewDetailCurriculumForm from '@/components/view-detail-curriculum/ViewDe
 
 const ViewDetailCurriculumPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#EFF5EB]">
+    <div>
       <ViewDetailCurriculumForm />
     </div>
   );

@@ -192,9 +192,9 @@ const ViewCurriculumListForm: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              fetchSettings(1);
-            }
+              if (e.key === 'Enter') {
+                fetchSettings(1);
+              }
             }}
           />
           <button onClick={() => fetchSettings(1)} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
@@ -245,7 +245,7 @@ const ViewCurriculumListForm: React.FC = () => {
                 </td>
                 <td className="border px-6 py-3 justify-center-center">
                   <div className="flex justify-center">
-                    <Link href="#">
+                    <Link href={`/feature/view-curriculum-list/${curriculum.curriculumId}`}>
                       <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
                     </Link>
                   </div>
