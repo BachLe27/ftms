@@ -225,7 +225,7 @@ const ViewSubjectListForm: React.FC = () => {
             {subject.map((subject) => (
               <tr
                 key={subject.subjectId}
-                className={subject.status === "Inactive" ? "bg-green-300" : ""}
+                className={!subject.status ? "bg-green-300" : ""}
               >
                 <td className="border px-6 py-3 text-center">{subject.subjectId}</td>
                 <td className="border px-6 py-3 text-center">{subject.subjectCode}</td>

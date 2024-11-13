@@ -8,6 +8,7 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Trash2 } from "lucide-react";
 import moment from "moment";
+import { FormError } from "../custom/form-error";
 
 interface Subject {
   code: string;
@@ -133,8 +134,11 @@ const ViewDetailCurriculumForm: React.FC = () => {
       <div className="flex justify-between items-center p-8">
         <h2 className="text-4xl font-bold">Curriculum Detail</h2>
       </div>
-      {error && <div className="text-red-500">{error}</div>}
-      <div className="bg-white rounded-[40px] p-12 mx-auto">
+      {error && 
+        <FormError message={error} />
+      }
+      {
+        !error && <div className="bg-white rounded-[40px] p-12 mx-auto">
         {curriculumData && (
           <Formik
             initialValues={{
@@ -188,6 +192,7 @@ const ViewDetailCurriculumForm: React.FC = () => {
                   <ErrorMessage name="status" component="div" className="text-red-500" />
                 </div>
 
+               
                 <div>
                   <label className="block font-bold text-3xl mb-2">Description</label>
                   <Field
@@ -199,7 +204,7 @@ const ViewDetailCurriculumForm: React.FC = () => {
                   <ErrorMessage name="descriptions" component="div" className="text-red-500" />
                 </div>
 
-                <div className="col-span-2">
+                <div>
                   <label className="block font-bold text-3xl mb-2">Subject List</label>
                   <FieldArray name="subjects">
                     {({ remove, push }) => (
@@ -286,6 +291,7 @@ const ViewDetailCurriculumForm: React.FC = () => {
                   </FieldArray>
                 </div>
 
+
                 <div>
                   <label className="block font-bold text-3xl mb-2">Created Date</label>
                   <input
@@ -316,6 +322,8 @@ const ViewDetailCurriculumForm: React.FC = () => {
           </Formik>
         )}
       </div>
+      }
+      
     </div>
   );
 };

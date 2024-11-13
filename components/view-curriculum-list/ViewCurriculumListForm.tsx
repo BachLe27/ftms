@@ -193,14 +193,18 @@ const ViewCurriculumListForm: React.FC = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                fetchSettings(1);
+                setCurrentPage(1);
+                fetchSettings(currentPage);
               }
             }}
           />
-          <button onClick={() => fetchSettings(1)} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
+          <button onClick={() => {
+            setCurrentPage(1);
+            fetchSettings(currentPage);
+          }} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
             Search
           </button>
-          <button className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
+          <button onClick={() => {router.push('/feature/add-curriculum')}} className="bg-[#6FBC44] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg hover:bg-[#5da639]">
             + Add More
           </button>
         </div>
@@ -223,7 +227,7 @@ const ViewCurriculumListForm: React.FC = () => {
             {curriculum.map((curriculum) => (
               <tr
                 key={curriculum.curriculumId}
-                className={curriculum.status === "Inactive" ? "bg-green-300" : ""}
+                className={!curriculum.status ? "bg-green-300" : ""}
               >
                 <td className="border px-6 py-3 text-center">{curriculum.curriculumId}</td>
                 <td className="border px-6 py-3 text-center">{curriculum.curriculumName}</td>
