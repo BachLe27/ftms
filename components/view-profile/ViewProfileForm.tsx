@@ -55,10 +55,10 @@ const ViewProfileForm = () => {
         setProfileData(response.data);
       })
       .catch(() => {
-        router.push("/login"); // Chuyển hướng nếu có lỗi
+        router.push("/authen/login"); // Chuyển hướng nếu có lỗi
       })
       .finally(() => {
-        
+
       });
   }, [router]);
 
@@ -95,10 +95,10 @@ const ViewProfileForm = () => {
                   User Profile
                 </button>
                 <button
-                onClick={() =>{router.push("/authen/change-password")}}
-                className="px-4 py-2 font-bold text-[#41464B]">
+                  onClick={() => { router.push("/authen/change-password") }}
+                  className="px-4 py-2 font-bold text-[#41464B]">
                   Change Password
-                
+
                 </button>
               </div>
             </div>

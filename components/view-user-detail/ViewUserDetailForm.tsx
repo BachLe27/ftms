@@ -30,7 +30,7 @@ const ViewUserDetailForm: React.FC = () => {
     const fetchUserDetail = async () => {
       try {
         const response = await axios.get(
-          `${BASE_API_URL}/user/management/list/${userId}`, // Use userId in the API call
+          `${BASE_API_URL}/user/management/list/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

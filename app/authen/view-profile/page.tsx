@@ -1,12 +1,5 @@
-import ViewProfileForm from '@/components/view-profile/ViewProfileForm'
-import React from 'react'
+import ViewProfileForm from "@/components/view-profile/ViewProfileForm";
 
-const ViewProfile = () => {
-  return (
-    <div>
-      <ViewProfileForm />
-    </div>
-  )
+export default function ViewProfilePage() {
+  return <ViewProfileForm />;
 }
-
-export default ViewProfile;

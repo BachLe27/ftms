@@ -3,17 +3,47 @@
 import { BookOpen, BookOpenText, CircleUser, Home, Library, LogOut, Settings, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const currentPath = usePathname()
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Add event listeners for route changes
+  useEffect(() => {
+    const handleStart = () => setIsLoading(true);
+    const handleComplete = () => setIsLoading(false);
+
+    window.addEventListener('beforeunload', handleStart);
+    window.addEventListener('load', handleComplete);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleStart);
+      window.removeEventListener('load', handleComplete);
+    };
+  }, []);
 
   // Helper function to determine if the link is active
   const isActive = (path: string) => currentPath === path;
 
+  const handleSignOut = () => {
+    // Remove JWT token from localStorage
+    localStorage.removeItem('jwt_token');
+    // Redirect to login page or home
+    router.push('/authen/login'); // or wherever your login page is
+  };
+
   return (
     <div className="flex min-h-screen">
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+        </div>
+      )}
+
       {/* Sidebar */}
       <div className="w-[228px] bg-[#6FBC44] fixed h-screen">
         <div className="p-10">
@@ -52,14 +82,17 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </Link>
 
           <Link href="/authen/view-profile" className={`flex items-center px-6 py-3 ${isActive('/authen/view-profile') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
-            <CircleUser className="w-6 h-6 mr-4"/>
+            <CircleUser className="w-6 h-6 mr-4" />
             <span className="font-bold">My Profile</span>
           </Link>
 
-          <Link href="/signout" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
+          <button
+            onClick={handleSignOut}
+            className="w-full flex items-center px-6 py-3 hover:bg-[#5da639] text-left"
+          >
             <LogOut className="w-6 h-6 mr-4" />
             <span className="font-bold">Sign out</span>
-          </Link>
+          </button>
         </nav>
       </div>
 
