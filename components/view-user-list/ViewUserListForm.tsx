@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
+import { BASE_API_URL } from "@/config/constant";
 
 interface User {
   userId: number;
@@ -36,7 +37,7 @@ const ViewUserListForm: React.FC = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8080/api/v1/user/management/list`,
+        `${BASE_API_URL}/user/management/list`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -86,7 +87,7 @@ const ViewUserListForm: React.FC = () => {
       const newStatus = !user.status;
 
       await axios.post(
-        `http://localhost:8080/api/v1/user/management/status/${userId}`,
+        `${BASE_API_URL}/user/management/status/${userId}`,
         { status: newStatus },
         {
           headers: {
@@ -235,6 +236,7 @@ const ViewUserListForm: React.FC = () => {
                 <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Email</th>
                 <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Phone number</th>
                 <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Status</th>
+                <th className="px-6 py-3 text-center uppercase tracking-wider border-r-white">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -262,6 +264,13 @@ const ViewUserListForm: React.FC = () => {
                           }}
                         />
                       </div>
+                    </div>
+                  </td>
+                  <td className="border px-6 py-3 justify-center-center">
+                    <div className="flex justify-center">
+                      <Link href={`/feature/view-user-detail/${user.userId}`}>
+                        <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
+                      </Link>
                     </div>
                   </td>
                 </tr>

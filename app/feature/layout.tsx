@@ -1,6 +1,6 @@
 'use client';
 
-import { BookOpen, BookOpenText, Home, Library, LogOut, Settings, Users } from 'lucide-react';
+import { BookOpen, BookOpenText, CircleUser, Home, Library, LogOut, Settings, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
@@ -49,6 +49,11 @@ const Layout = ({ children }: { children: ReactNode }) => {
           <Link href="/feature/view-system-setting" className={`flex items-center px-6 py-3 mt-60 ${isActive('/feature/view-system-setting') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <Settings className="w-6 h-6 mr-4" />
             <span className="font-bold">Setting</span>
+          </Link>
+
+          <Link href="/authen/view-profile" className={`flex items-center px-6 py-3 ${isActive('/authen/view-profile') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
+            <CircleUser className="w-6 h-6 mr-4"/>
+            <span className="font-bold">My Profile</span>
           </Link>
 
           <Link href="/signout" className="flex items-center px-6 py-3 hover:bg-[#5da639]">
