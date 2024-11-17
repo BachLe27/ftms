@@ -188,7 +188,7 @@ const ViewUserListForm: React.FC = () => {
   }, [currentPage]);
 
   return (
-    <div className="flex-1 ml-[228px] bg-[#EFF5EB] p-24">
+    <div className="flex-1 ml-[228px] bg-[#EFF5EB] p-24 min-h-screen">
       <div className="flex justify-between items-center p-8 border-b">
         <h2 className="text-6xl font-bold">User List</h2>
         <div className="flex space-x-4">
