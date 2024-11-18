@@ -191,7 +191,7 @@ const AddSubjectForm: React.FC = () => {
                   General Info
                 </Tab>
                 <Tab className={({ selected }) => selected ? "bg-[#6FBC44] text-white font-bold py-2 px-4 rounded" : "bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded cursor-not-allowed"}>
-                  Lesson List
+                  Session List
                 </Tab>
               </Tab.List>
               <Tab.Panels>

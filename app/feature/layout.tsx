@@ -1,6 +1,6 @@
 'use client';
 
-import { BookOpen, BookOpenText, CircleUser, Home, Library, LogOut, MessagesSquare, Settings, Users } from 'lucide-react';
+import { BookOpen, BookOpenText, CircleUser, GraduationCap, Home, Library, LogOut, MessagesSquare, Settings, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode, useState, useEffect } from 'react';
@@ -75,12 +75,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <BookOpenText className="w-6 h-6 mr-4" />
             <span className="font-bold">Subject Management</span>
           </Link>
+
+          <Link href="/feature/view-class-list" className={`flex items-center px-6 py-3 ${isActive('/feature/view-class-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
+            <GraduationCap className="w-6 h-6 mr-4" />
+            <span className="font-bold text-base">Class Management</span>
+          </Link>
+
           <Link href="/feature/feedback-list" className={`flex items-center px-6 py-3 ${isActive('/feature/feedback-list') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
-            <MessagesSquare className="w-6 h-6 mr-4"/>
+            <MessagesSquare className="w-6 h-6 mr-4" />
             <span className="font-bold">Feedback</span>
           </Link>
 
-          <Link href="/feature/view-system-setting" className={`flex items-center px-6 py-3 mt-60 ${isActive('/feature/view-system-setting') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
+          <Link href="/feature/view-system-setting" className={`flex items-center px-6 py-3 mt-40 ${isActive('/feature/view-system-setting') ? 'bg-[#5da639]' : 'hover:bg-[#5da639]'}`}>
             <Settings className="w-6 h-6 mr-4" />
             <span className="font-bold">Setting</span>
           </Link>
