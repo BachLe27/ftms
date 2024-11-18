@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
 import { BASE_API_URL } from "@/config/constant";
+import { toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 interface User {
   userId: number;
@@ -101,12 +103,18 @@ const ViewUserListForm: React.FC = () => {
           user.userId === userId ? { ...user, status: newStatus } : user
         )
       );
+
+      // Show success toast
+      toast.success(`Update user status successfully!`);
     } catch (err) {
       setError("Error updating user status");
       console.error("Error updating user status:", err);
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         router.push("/authen/login");
       }
+
+      // Show error toast
+      toast.error("Failed to update user status");
     }
   };
 

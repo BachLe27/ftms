@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { BASE_API_URL } from "@/config/constant";
 import moment from "moment";
+import { toast, Toaster } from "react-hot-toast";
 
 const ViewCurriculumListForm: React.FC = () => {
   const [curriculum, setCurriculum] = useState([]);
@@ -108,12 +109,16 @@ const ViewCurriculumListForm: React.FC = () => {
             : curriculum
         )
       );
+
+      toast.success("Curriculum status updated successfully!");
     } catch (err) {
       setError("Error updating curriculum status");
       console.error("Error updating curriculum status:", err);
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         router.push("/authen/login");
       }
+
+      toast.error("Failed to update curriculum status");
     }
   };
 
@@ -124,7 +129,7 @@ const ViewCurriculumListForm: React.FC = () => {
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
         buttons.push(
-          <button
+          <button   
             key={i}
             onClick={() => handlePageChange(i)}
             className={`px-3 py-2 rounded ${currentPage === i ? "bg-[#6FBC44] text-white" : "bg-gray-200 hover:bg-gray-300"}`}
@@ -182,6 +187,7 @@ const ViewCurriculumListForm: React.FC = () => {
 
   return (
     <div className="flex-1 ml-[228px] bg-[#EFF5EB] p-24 min-h-screen">
+      
       <div className="flex justify-between items-center p-8 border-b">
         <h2 className="text-6xl font-bold">Curriculum List</h2>
         <div className="flex space-x-4">

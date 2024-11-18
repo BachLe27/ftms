@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { BASE_API_URL } from "@/config/constant";
 import moment from "moment";
+import { toast, Toaster } from "react-hot-toast";
 
 const ViewSubjectListForm: React.FC = () => {
   const [subject, setSubject] = useState([]);
@@ -110,12 +111,16 @@ const ViewSubjectListForm: React.FC = () => {
             : subject
         )
       );
+
+      toast.success("Subject status updated successfully!");
     } catch (err) {
       setError("Error updating subject status");
       console.error("Error updating subject status:", err);
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         router.push("/authen/login");
       }
+
+      toast.error("Failed to update subject status");
     }
   };
 

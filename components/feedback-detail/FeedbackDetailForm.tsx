@@ -1,5 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { BASE_API_URL } from "@/config/constant";
 import { Home, Users, BookOpen, Settings, LogOut, UserCircle, BookCheck } from "lucide-react";
 
 interface FeedbackDetailData {
@@ -16,34 +19,42 @@ interface FeedbackDetailData {
 }
 
 const FeedbackDetailForm: React.FC = () => {
-  // Sample data - in a real app, this would come from an API
-  const feedbackDetail: FeedbackDetailData = {
-    class: "Java01",
-    trainer: "HuyLT",
-    subjectName: "Java",
-    duration: "12/8/2024-12/12-2024",
-    curriculumRating: 3,
-    recommendCourse: true,
-    satisfiedCurriculum: true,
-    trainerTeachFull: true,
-    trainerOnTime: true,
-    description: ""
-  };
+  const { id: feedbackId } = useParams();
+  const router = useRouter();
+  const [feedbackDetail, setFeedbackDetail] = useState<FeedbackDetailData | null>(null);
 
-  const renderStar = (position: number) => {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill={position <= feedbackDetail.curriculumRating ? "#FFD700" : "none"}
-        stroke="#FFD700"
-        strokeWidth="2"
-      >
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </svg>
-    );
-  };
+  useEffect(() => {
+    const fetchFeedbackDetail = async () => {
+      const token = localStorage.getItem("jwtToken");
+      if (!token) {
+        router.push("/authen/login");
+        return;
+      }
+
+      try {
+        const response = await axios.post(`${BASE_API_URL}/feedback-management/detail`, 
+          {
+            feedBackId: Number(feedbackId)
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          },
+        );
+
+        setFeedbackDetail(response.data.data);
+      } catch (error) {
+        console.error("Error fetching feedback detail:", error);
+      }
+    };
+
+    fetchFeedbackDetail();
+  }, [feedbackId]);
+
+  if (!feedbackDetail) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex min-h-screen max-h-screen overflow-hidden bg-[#EFF5EB]">
@@ -127,7 +138,19 @@ const FeedbackDetailForm: React.FC = () => {
             <div className="mb-6">
               <p className="mb-2 font-medium">How would you rate the curriculum quality?</p>
               <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((num) => renderStar(num))}
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <svg
+                    key={num}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill={num <= feedbackDetail.curriculumRating ? "#FFD700" : "none"}
+                    stroke="#FFD700"
+                    strokeWidth="2"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
               </div>
             </div>
 

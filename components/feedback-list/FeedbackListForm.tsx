@@ -392,7 +392,7 @@ const FeedbackListForm: React.FC = () => {
               <td className="px-6 py-3 text-center">{new Date(feedback.lastUpdate).toLocaleDateString()}</td>
               <td className="border px-6 py-3 justify-center-center">
                 <div className="flex justify-center">
-                  <Link href={`#`}>
+                  <Link href={`/feature/feedback-detail/${feedback.feedbackId}`}>
                     <FiEdit className="w-6 h-6 text-green-600 hover:text-green-800" />
                   </Link>
                 </div>
