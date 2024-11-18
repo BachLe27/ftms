@@ -111,7 +111,7 @@ const AddCurriculumForm: React.FC = () => {
       <div className="flex justify-between items-center p-8">
         <h2 className="text-4xl font-bold">Add New Curriculum</h2>
       </div>
-      {error && 
+      {error &&
         <FormError message={error} />
       }
       <div className="bg-white rounded-[40px] p-12 mx-auto">
